@@ -9,25 +9,18 @@ const { dbConnection } = require('./database/config');
 //crear el servidor 
 const app = express();
 
-// Cors
+// Cors: let you receive api calls from different domaines
 app.use(cors());
+
+//Lectura y parseo del body
+app.use(express.json())
 
 
 //Base de datos
 dbConnection();
 
-//XHOcTEj5DG52XLOl
-//spar_user
-
-//rUTAS
-app.get('/', (req, res)=>{
-    res.json({
-        ok:true,
-        msg:"Hola mundo"
-    })
-});
-
-
+// Rutas
+app.use('/api/productos',require('./routes/productos'));
 
 
 
