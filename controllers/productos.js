@@ -7,10 +7,22 @@ const Producto = require('../model/productos');
 
 const getProductos= async (req, res)=>{
 
-    const productos = await  Producto.find({}, 'codigo descripcion proveedor fechaCaducidad' );
+//Paginacion
+    const desde = Number(req.query.desde) || 0;
+
+    const [ productos, total] = await Promise.all([
+          Producto
+          .find({}, 'codigo descripcion proveedor fechaCaducidad' )
+          .skip(desde)
+          .limit(5),
+
+          Producto.count()
+    ]);
+
     res.json({
         ok:true,
-        productos
+        productos,
+        total
     })
 }
 
@@ -97,7 +109,6 @@ const actualizarProductos = async (req, res) =>{
 const borrarProducto = async (req, res) =>{
      
     const idProducto = req.params.id;
-   
 
     try {
 

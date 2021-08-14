@@ -21,6 +21,7 @@ dbConnection();
 
 // Rutas
 app.use('/api/productos',require('./routes/productos'));
+app.use('/api/todo',require('./routes/busquedas'));
 
 
 
